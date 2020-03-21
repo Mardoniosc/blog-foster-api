@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Mardoniosc/blog-foster-api.svg?branch=master)](https://travis-ci.com/Mardoniosc/blog-foster-api)
+
 ### blog-foster-api :maple_leaf:
 
 API do blog foster com Java e Spring Boot.
