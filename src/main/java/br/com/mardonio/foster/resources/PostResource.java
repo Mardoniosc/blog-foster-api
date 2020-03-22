@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class PostResource {
 	private PostService postService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id){
+	public ResponseEntity<Post> find(@PathVariable Integer id){
 		Post obj = postService.find(id);
 		return ResponseEntity.ok(obj);
 	}
@@ -37,4 +38,12 @@ public class PostResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody Post obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = postService.update(obj);
+		return ResponseEntity.noContent().build();
+
+	}
+	
 }

@@ -25,4 +25,10 @@ public class PostService {
 		obj.setId(null);
 		return postRepository.save(obj);
 	}
+	
+	public Post update(Post obj) {
+		find(obj.getId());
+		
+		return postRepository.save(obj);
+	}
 }
