@@ -1,6 +1,8 @@
 package br.com.mardonio.foster.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.mardonio.foster.domain.Post;
+import br.com.mardonio.foster.dto.PostDTO;
 import br.com.mardonio.foster.service.PostService;
 
 @RestController
@@ -27,7 +30,7 @@ public class PostResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<Post> find(@PathVariable Integer id){
 		Post obj = postService.find(id);
-		return ResponseEntity.ok(obj);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
@@ -51,6 +54,13 @@ public class PostResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		postService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<PostDTO>> findAll() {
+		List<Post> list = postService.findAll();
+		List<PostDTO> listDTO = list.stream().map(obj -> new PostDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 }
