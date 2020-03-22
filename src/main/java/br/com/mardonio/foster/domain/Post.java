@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Post implements Serializable{
@@ -20,15 +24,20 @@ public class Post implements Serializable{
 	private Date createdAT;
 	private Date updatedAT;
 	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
 	public Post() {}
 
-	public Post(Integer id, String titulo, String conteudo, Date createdAT, Date updatedAT) {
+	public Post(Integer id, String titulo, String conteudo, Date createdAT, Date updatedAT, Usuario usuario) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.conteudo = conteudo;
 		this.createdAT = createdAT;
 		this.updatedAT = updatedAT;
+		this.usuario = usuario;
 	}
 
 	public Integer getId() {
@@ -69,6 +78,14 @@ public class Post implements Serializable{
 
 	public void setUpdatedAT(Date updatedAT) {
 		this.updatedAT = updatedAT;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

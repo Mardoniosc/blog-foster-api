@@ -1,11 +1,16 @@
 package br.com.mardonio.foster.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.mardonio.foster.domain.enums.TipoCliente;
 
@@ -20,6 +25,10 @@ public class Usuario implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
+	
+	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
+	private List<Post> posts = new ArrayList<>();
 	
 	public Usuario() {}
 
@@ -70,6 +79,14 @@ public class Usuario implements Serializable {
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override
