@@ -17,7 +17,6 @@ public class PostDTO implements Serializable{
 	public PostDTO() {}
 
 	public PostDTO(Post obj) {
-		super();
 		id = obj.getId();
 		titulo = obj.getTitulo();
 		conteudo = obj.getConteudo();
