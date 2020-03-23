@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.mardonio.foster.domain.Post;
+import br.com.mardonio.foster.dto.PostDTO;
 import br.com.mardonio.foster.repository.PostRepository;
 import br.com.mardonio.foster.service.exceptions.DataIntegrityException;
 import br.com.mardonio.foster.service.exceptions.ObjectNotFoundException;
@@ -54,5 +55,9 @@ public class PostService {
 	public Page<Post> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return postRepository.findAll(pageRequest);
+	}
+	
+	public Post fromDTO(PostDTO objDTO) {
+		return new Post(objDTO.getId(), objDTO.getTitulo(), objDTO.getConteudo(), objDTO.getCreatedAT(), objDTO.getUpdatedAT(), null);
 	}
 }
